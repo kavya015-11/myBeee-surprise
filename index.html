@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Full of Love - From Beeee 🐝</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#0a0d14; --steel:#161b26; --smoke:#8b94a7; --fog:#e8ebf2; --signal:#ffd23f; --ember:#ff7a1a;
+  color-scheme:dark; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--night);color:var(--fog);font:500 17px/1.6 "Barlow",system-ui,sans-serif;overflow-x:hidden}
+h1,h2{font-family:"Anton","Impact",sans-serif;font-weight:400;letter-spacing:.02em;line-height:1;margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--signal);outline-offset:3px}
+[hidden]{display:none!important}
+/* .gated{display:none} */
+.gated{display:none!important}
+
+/* hero */
+.hero{min-height:100svh;display:grid;place-items:center;text-align:center;position:relative;overflow:hidden;padding:24px;
+  background:radial-gradient(120% 80% at 50% 110%,#1b2233 0,var(--night) 60%)}
+.skyline{position:absolute;left:0;right:0;bottom:0;height:34vh;min-height:150px;opacity:.9}
+.beam{position:absolute;left:50%;top:38%;width:min(150vw,1100px);height:120vh;transform:translate(-50%,-100%) rotate(0);transform-origin:50% 100%;
+  background:linear-gradient(to top,rgba(255,210,63,.55),rgba(255,210,63,0) 85%);clip-path:polygon(46% 100%,54% 100%,100% 0,0 0);
+  opacity:0;transition:opacity 1.4s ease}
+.lit .beam{opacity:1}
+.moon{position:relative;width:min(56vw,260px);aspect-ratio:2/1.15;margin:0 auto 28px;display:grid;place-items:center;border-radius:50%;
+  background:#12161f;border:2px solid #232a3a;transition:background 1s,box-shadow 1s,border-color 1s}
+.lit .moon{background:var(--signal);border-color:#fff3b8;box-shadow:0 0 80px 24px rgba(255,210,63,.55)}
+.moon svg{width:62%;fill:#2a3142;transition:fill 1s}
+.lit .moon svg{fill:#0a0d14}
+.hero-inner{position:relative;z-index:2}
+.hint{color:var(--smoke);margin:0 0 20px}
+.btn{background:var(--signal);color:#0a0d14;border:0;border-radius:4px;padding:14px 28px;font-weight:600;font-size:1.05rem;transition:transform .15s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,210,63,.35)}
+.btn:active{transform:translateY(0)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.title{opacity:0;max-height:0;overflow:hidden;transition:opacity 1.2s .8s,max-height 0s 0s}
+.lit .title{opacity:1;max-height:420px}
+.lit .intro{display:none}
+.title h1{font-size:clamp(1.8rem,5.5vw,3.4rem);color:var(--fog);text-shadow:0 0 40px rgba(255,210,63,.35)}
+.title p{max-width:min(92vw,920px);margin:14px auto 22px;color:var(--smoke)}
+.down{display:inline-block;color:var(--signal);text-decoration:none;font-weight:600;border-bottom:2px solid var(--signal);padding-bottom:2px}
+.next{display:block;width:fit-content;margin:70px auto 0}
+
+/* sections */
+section.pad{padding:96px 24px;min-height:100svh;max-width:960px;margin:0 auto}
+section h2{font-size:clamp(2rem,6vw,3.2rem);margin-bottom:10px}
+.sub{color:var(--smoke);margin:0 0 36px;max-width:52ch}
+
+/* locks and rewards cards */
+.files{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.file{position:relative;text-align:left;background:var(--steel);border:1px solid #252c3d;border-left:6px solid var(--signal);border-radius:4px;padding:22px 20px;min-height:170px;display:flex;flex-direction:column;justify-content:space-between;transition:border-color .3s,background .3s}
+.file:hover{background:#1b2130}
+.file .tag{font-family:"Anton",sans-serif;font-size:1.5rem;letter-spacing:.03em}
+.file .stamp{color:var(--smoke);font-size:.95rem}
+.file .secret{display:none;color:var(--fog)}
+.file.open{border-left-color:var(--ember);background:#1c2231}
+.file.open .secret{display:block;animation:in .5s ease}
+.file.open .stamp{display:none}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.counter{margin-top:20px;color:var(--smoke)}
+
+/* cake */
+.cake-wrap{background:var(--steel);border:1px solid #252c3d;border-radius:6px;padding:40px 20px 32px;text-align:center}
+.cake{position:relative;width:min(440px,96%);margin:0 auto}
+.candles{display:flex;flex-wrap:wrap;justify-content:center;gap:2px;margin-bottom:-2px}
+.candle{background:none;border:0;padding:4px 8px;display:flex;flex-direction:column;align-items:center}
+.flame{width:10px;height:17px;border-radius:50% 50% 50% 50%/65% 65% 35% 35%;background:radial-gradient(circle at 50% 70%,#fff6c4,var(--signal) 45%,var(--ember));
+  box-shadow:0 0 10px 3px rgba(255,170,40,.55);animation:flick .18s infinite alternate;transform-origin:50% 100%;transition:opacity .25s,transform .25s}
+@keyframes flick{from{transform:scale(1,1) rotate(-3deg)}to{transform:scale(.92,1.08) rotate(3deg)}}
+.stick{width:7px;height:26px;background:linear-gradient(#c9cfdc,#7e8799);border-radius:2px}
+.candle.out .flame{opacity:0;transform:scale(.2);animation:none;box-shadow:none}
+.candle.out::before{content:"";position:absolute;margin-top:-8px;width:4px;height:4px;border-radius:50%;background:#aab;animation:smoke 1.4s ease-out forwards}
+@keyframes smoke{to{transform:translateY(-46px) scale(5);opacity:0}}
+.tier{height:54px;background:#242b3c;border-radius:6px 6px 0 0;display:grid;place-items:center;border-bottom:3px solid var(--signal)}
+.tier2{height:70px;width:112%;margin-left:-6%;background:#1d2332;border-radius:6px;display:grid;place-items:center}
+.tier svg{width:44px;fill:var(--signal)}
+.tier2 span{font-family:"Anton",sans-serif;letter-spacing:.06em;color:var(--signal)}
+.status{min-height:1.6em;margin:24px 0 0;color:var(--smoke)}
+.final{max-height:0;overflow:hidden;opacity:0;transition:max-height 1s ease,opacity 1s ease}
+.final.show{max-height:20000px;opacity:1}
+.final h2{font-size:clamp(2.2rem,8vw,4rem);color:var(--signal);margin-top:56px}
+.final p{font-size:1.15rem;max-width:none}
+.sig{font-family:"Anton",sans-serif;font-size:1.6rem;letter-spacing:.05em;margin-top:22px}
+.modal{position:fixed;inset:0;display:none;place-items:center;background:rgba(5,7,12,.85);z-index:60;padding:24px}
+.modal.show{display:grid}
+.mbox{background:var(--steel);border:1px solid #2c3550;border-top:6px solid var(--signal);border-radius:6px;padding:26px 22px;width:min(440px,100%)}
+.mbox h3{font-family:"Anton",sans-serif;font-weight:400;font-size:1.7rem;margin:0 0 6px}
+.mbox p{margin:0 0 14px;color:var(--smoke)}
+.mbox input{width:100%;padding:13px 14px;border-radius:4px;border:1px solid #39435f;background:#0d111b;color:var(--fog);font:inherit;margin-bottom:16px}
+/* .mrow{display:flex;gap:10px;justify-content:flex-end} */
+#modal .mbox{width:min(600px,100%);padding:30px 28px;border-radius:10px;box-shadow:0 20px 70px rgba(0,0,0,.6)}
+#modal .mbox h3{font-size:2rem;color:var(--signal);margin-bottom:8px}
+#modal .mbox p{font-size:1.05rem}
+.mbox textarea{display:block;width:100%;min-height:160px;padding:16px 18px;border-radius:8px;border:1px solid #39435f;background:#0d111b;color:var(--fog);font:inherit;font-size:1.15rem;line-height:1.6;resize:vertical;margin-bottom:20px}
+.mbox textarea:focus{outline:none;border-color:var(--signal);box-shadow:0 0 0 3px rgba(255,210,63,.25)}
+.mbox textarea::placeholder{color:#5b6477}
+.mrow{display:flex;gap:10px;justify-content:flex-end}
+.rbox{text-align:center;border:0;background:linear-gradient(135deg,#ff4d8d,#ff9a3c,#ffd23f);color:#0a0d14;animation:pop .35s ease}
+.rbox h3{color:#0a0d14}
+.rbox p{color:#3a1f12;font-size:1.3rem;font-weight:600}
+.rbox .btn{background:#0a0d14;color:#fff}
+@keyframes pop{from{transform:scale(.7);opacity:0}to{transform:none;opacity:1}}
+.btn.alt{background:transparent;color:var(--fog);border:1px solid #39435f}
+.wl-h{font-family:"Anton",sans-serif;font-weight:400;font-size:1.6rem;margin:36px 0 0}
+.wl{padding-left:1.4em;max-width:56ch;margin:14px 0 24px}.wl li{margin-bottom:8px}
+.acts{display:flex;gap:12px;flex-wrap:wrap}
+.acts .btn{text-decoration:none;display:inline-block}
+.fb{position:absolute;left:0;height:17px;width:34px;fill:#3a4258;opacity:0;z-index:1;pointer-events:none}
+.lit .fb{opacity:.85;animation:fly 16s linear infinite}
+@keyframes fly{from{transform:translateX(-10vw)}50%{transform:translate(50vw,-26px)}to{transform:translateX(110vw)}}
+.quiz{background:var(--steel);border:1px solid #252c3d;border-left:6px solid var(--signal);border-radius:4px;padding:24px 20px}
+.qn{color:var(--smoke);margin:0 0 6px}
+.qq{font-family:"Anton",sans-serif;font-size:1.6rem;margin:0 0 16px;line-height:1.25}
+.opts{display:grid;gap:10px}
+.opt{text-align:left;background:#0d111b;border:1px solid #39435f;border-radius:4px;padding:12px 14px;transition:border-color .2s,background .2s}
+.opt:hover{border-color:var(--signal)}
+.opt.picked{border-color:var(--signal);background:#1c2231}
+.lovenote{font-family:"Anton",sans-serif;font-size:clamp(1.6rem,5vw,2.4rem);margin:20px 0 0;animation:pop .6s ease .8s both}
+.lovenote span{background:linear-gradient(90deg,#ff4d8d,#ff9a3c,#ffd23f);-webkit-background-clip:text;background-clip:text;color:transparent}
+.answers{margin-top:22px;display:grid;gap:12px;animation:pop .6s ease 1.4s both}
+.ans{background:#0d111b;border:1px solid #39435f;border-left:4px solid #4ade80;border-radius:4px;padding:12px 14px}
+.ans .aq{display:block;color:var(--smoke);font-size:.95rem}
+.ans strong{color:var(--fog)}
+.textme{margin-top:22px;color:var(--signal);font-weight:600;animation:pop .6s ease 2s both}
+.qnext{margin-top:14px}
+.end-h{font-size:clamp(2.6rem,10vw,6rem);color:var(--fog);text-shadow:0 0 40px rgba(255,210,63,.35);margin-bottom:16px}
+.end-h .y{color:var(--signal)}
+.end-sub{max-width:34em;margin:0 auto 28px;color:var(--smoke);font-size:1.15rem}
+.end-fade{opacity:0;transition:opacity 1.4s .9s}
+.lit .end-fade{opacity:1}
+footer{padding:40px 24px 60px;text-align:center;color:var(--smoke);font-size:.9rem}
+canvas#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:70}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="bat" viewBox="0 0 100 50"><path d="M50 10 L44 0 L42 10 C36 8 28 10 20 4 C22 14 14 24 0 26 C10 28 18 28 24 32 C28 30 34 30 38 34 C42 36 46 40 50 50 C54 40 58 36 62 34 C66 30 72 30 76 32 C82 28 90 28 100 26 C86 24 78 14 80 4 C72 10 64 8 58 10 L56 0 Z"/></symbol>
+</svg>
+
+<header class="hero" id="hero">
+  <div class="beam" aria-hidden="true"></div>
+  <svg class="fb" viewBox="0 0 100 50" style="top:10%" aria-hidden="true"><use href="#bat"/></svg>
+  <svg class="fb" viewBox="0 0 100 50" style="top:22%;animation-delay:-5s" aria-hidden="true"><use href="#bat"/></svg>
+  <svg class="fb" viewBox="0 0 100 50" style="top:6%;animation-delay:-10s" aria-hidden="true"><use href="#bat"/></svg>
+  <svg class="fb" viewBox="0 0 100 50" style="top:30%;animation-delay:-13s" aria-hidden="true"><use href="#bat"/></svg>
+  <svg class="skyline" viewBox="0 0 1200 200" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="#0f1320" d="M0 200V120h40V90h30v30h30V60h40v60h30V100h50V70h30v50h40V40h45v80h35V95h40v25h30V55h50v65h40V85h35V30h40v90h30V100h45V65h40v55h35V90h40V50h45v70h30V105h50V75h40v45h35V95h45V35h40v85h30V110h50V80h30v40h40V60h40v140z"/>
+  </svg>
+  <div class="hero-inner">
+    <div class="moon"><svg><use href="#bat"/></svg></div>
+    <div class="intro">
+      <p class="hint">My Batman's Signal is very weak without you. Come'on light up darling.</p>
+      <button class="btn" id="light">Light the Batman's - Signal</button>
+    </div>
+    <div class="title">
+      <h1 id="hbd"></h1>
+      <p id="tagline"></p>
+      <a class="down" href="#files"> Open the locks -> Know the secrets</a>
+    </div>
+  </div>
+</header>
+
+<section class="pad" id="files">
+  <h2>Secrets Ahead 🤫</h2>
+  <p class="sub">Three locks, three different reason's</p>
+  <div class="files" id="fileGrid"></div>
+  <p class="counter" id="counter"></p>
+  <a class="down next" id="go1" href="#wish" hidden>Blow the Candles -> Make a Wish -> Love me More</a>
+</section>
+
+<section class="pad gated" id="wish">
+  <h2>30 years la dha na kedaikum nu irundhu iruku. Hmmm Hmmm okayyy - 30 candles, 30 wishes okayyy</h2>
+  <p class="sub">Tap a flame, type one wish, and blow out that candle.</p>
+  <div class="cake-wrap">
+    <div class="cake">
+      <div class="candles" id="candles"></div>
+      <div class="tier"><svg><use href="#bat"/></svg></div>
+      <div class="tier2"><span id="cakeText"></span></div>
+    </div>
+    <p class="status" id="status" aria-live="polite"></p>
+    <button class="btn alt" id="tune" style="margin-top:16px" disabled>I hope this will be your fav tune</button>
+  </div>
+
+  <div class="final" id="final">
+    <h2 id="finalTitle"></h2>
+    <p id="finalMsg"></p>
+    <div class="sig" id="sig" hidden></div>
+    <button class="btn" id="proceed" style="margin-top:28px" hidden>Proceed 💛</button>
+
+    <div id="wishPart" hidden>
+      <h3 class="wl-h">Your 30 wishes</h3>
+      <ol class="wl" id="wl"></ol>
+      <div class="acts"><a class="btn" id="wa" target="_blank" rel="noopener">Send your wishes to mee on Whatsapp 😁😈</a><button class="btn alt" id="copy">Waiting For Your Wishes to reach me 🥹🥹😚</button></div>
+      <p class="status" id="copyMsg" aria-live="polite"></p>
+      <!-- <a class="down" id="go2" href="#quizsec" style="margin-top:28px" hidden>Answer Question Correctly -> Get Rewards</a> -->
+       <a class="down next" id="go2" href="#quizsec" hidden>Answer Question Correctly -> Get Rewards</a>
+    </div>
+  </div>
+</section>
+
+<section class="pad gated" id="quizsec">
+  <h2>Let's See how well do you know me</h2>
+  <p class="sub">Get all three right to get the rewards. Remember, you get only one chance - no second chance in life 😏</p>
+  <div class="quiz" id="quiz"></div>
+  <!-- <a class="down" id="go3" href="#rewards" style="margin-top:28px" hidden>Get Rewards -></a> -->
+   <a class="down next" id="go3" href="#rewards" hidden>Get Rewards -></a>
+</section>
+
+<section class="pad gated" id="rewards">
+  <h2>Birthday Boy's Rewards 🎟️</h2>
+  <p class="sub">Tap to redeem. Valid forever, no expiry date.</p>
+    <div class="files" id="coupons"></div>
+  <a class="down next" id="go4" href="#theend" hidden>The Last Page -></a>
+</section>
+
+<section class="hero gated" id="theend">
+  <div class="beam" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="moon"><svg><use href="#bat"/></svg></div>
+    <!-- <h1 class="end-h end-fade"><span class="y">Mission complete.</span><br><span id="endTitle"></span></h1> -->
+     <h1 class="end-h end-fade" id="endTitle"></h1>
+    <p class="end-sub end-fade" id="endSub"></p>
+    <button class="btn end-fade" id="again">Watch it again</button>
+  </div>
+</section>
+  <!-- <div class="files" id="coupons"></div>
+</section> -->
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="wishNo"><div class="mbox"><h3 id="wishNo"></h3><p>Type one wish for this candle. Take your time, then press the button when you are done.</p><textarea id="wishIn" rows="5" placeholder="I wish…" autocomplete="off"></textarea><div class="mrow"><button class="btn alt" id="wishCancel">Not yet</button><button class="btn" id="wishSave">Blow it out</button></div></div></div>
+<div class="modal" id="redeem" role="dialog" aria-modal="true">
+  <div class="mbox rbox">
+    <h3>🎉 Reward Redeemed! 🎉</h3>
+    <p>Nerula vangikonga pa 😘💛</p>
+    <button class="btn" id="redeemClose">Okay 😍</button>
+  </div>
+</div>
+<footer>Made purely with only love - Kavya 👸🏻</footer>
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<script>
+/* ===== EDIT THESE ===== */
+const CONFIG = {
+  name: "Thangam ❤️😘",
+  from: "Your Beee , Your Thangoo , Your Chello , Your Bujji, Your Everything",        // your name or nickname
+  age: "",                  // used only in the heading
+  candles: 30,              // number of candles = number of wishes
+  whatsapp: "",             // your number with country code, digits only. Example: "919876543210"
+  song: "song.mp3",         // your own song file, kept in the same folder as this page. Use "" for the built-in tune
+  tagline: "Pradeep everything feels different with you. I'm behaving different😂 U Make me do the things which i never did, poi pesuren, konjam dhairiyam vandhuchi.\n Someone can love me this much, kekamaiye u will get things i love. Someone notices me this much. Someone loves me this much. Obssesed with me this much. Adhula i felt from you. Happy Happy 🥹🥹🥹",
+  cakeText: "Make a wish Birthday Boy",
+  files: [
+    {tag:"🔒 Lock 1", secret:"Do you know how pretty you are, how charming you are, how hard for me to resist you, effortlessly u steal my attention my time 🫣."},
+    {tag:"🔒 Lock 2", secret:"Do you even realise how insanely good (oh sorry super) your physique is - thonum i should feel it apdinu 🥵"},
+    {tag:"🔒 Lock 3", secret:"Oh my Gawd! Your Voice 🥹🥹❤️"}
+  ],
+  // quiz: [
+  //   {q:"What’s my favorite thing to do with you?", o:["Watching movies","Long drives","Eating out","Honestly, anything with you"], a:3},
+  //   {q:"What do I wish to call you badly, but you think i only resist myself to call you?", o:["Thangam❤️","Dei, vada, poda","Without hesitation whatever i wish to call","Bujji"], a:0},
+  //   {q:"Who loves who more?", o:["Kavya loves pradeep more","Pradeep Loves Kavya More","It’s a tie","Cannot Measure"], a:3}
+  // ],
+  quiz: [
+    {q:"What’s my favorite thing to do with you?", o:["Watching movies","Long drives","Eating out","Honestly, anything with you"], a:3, ok:"Correct. Anything, anywhere, as long as it’s you.", no:"Nice try. The real answer is the last one."},
+    {q:"What do I wish to call you badly, but you think i only resist myself to call you?", o:["Thangam❤️","Dei, vada, poda","Without hesitation whatever i wish to call","Bujji"], a:2, ok:"Without hesitation whatever i wish to call", no:"Close, but it’s not the correct answer."},
+    {q:"Who loves who more?", o:["Kavya loves pradeep more","Pradeep Loves Kavya More","It’s a tie","Cannot Measure"], a:1, ok:"Pradeep Loves Kavya More", no:"Wrong. I wish i love you more - but it's very hard to beat you thangoo"}
+  ],
+  coupons: [
+    {tag:"🎟️ Reward 1: Movie night", secret:"U asked for a night show right, we will go."},
+    {tag:"🎟️ Reward 2: Kisses unlimited only today", secret:"U can ask me anything , n number of kisses i'll give u can also give me"},
+    {tag:"🎟️ Reward 3: Any one thing u ask me or say me to do", secret:"Answer will never be No for this - but only 1 time ask i'll do whatever it is"}
+  ],
+  finalTitle: "Mission complete.😝😝",
+  finalMsg: "Another year older, eppidiyo i got you now illana unga veetula vera yarukuna kalyanam pani vechi irupanga 30 kula kandipa nengalum ena pakkalana okay soli irupinga veetula pakura ponukee 😭. \n Very grateful pa eppidiyo i got you. Actually ennaku thonum i'm thankful for 2 people's in our life's nu onu shivani and inonu lingam. They were also a part of our life, we learnt many good things and bad nu illa that made ourselves better nu we both have discussed about it. Now I'm the very very very very happy person in this entire world 🌍 pha - we both carry a different energy - different vibe - extremely happy together - i was happy before also but not this happy what i feel with you is completely happy happy. Olunga Kalyanam panikonga ena veetula convince pani ennaku therla ennala endha alavuku pana mudiyum nu adhula yosichale bayama iruku ennaku semmaiya. Do something permission vangi kattikonga pa. I Love You so so so much Chellam 😘😘",
+  endTitle: "Happy 30, Loveee 💞❤️",
+  endSub: "I Hope it would have made you feel happy. I Just want you to be happy. We will be happy. Lots of Love with the help of Batman 🦇",
+};
+/* ====================== */
+
+const $ = id => document.getElementById(id);
+/* on refresh, always start from the first page */
+try { history.scrollRestoration = 'manual'; if (location.hash) history.replaceState(null, '', location.pathname + location.search); } catch(e){}
+scrollTo({top:0, behavior:'instant'});
+addEventListener('load', () => scrollTo({top:0, behavior:'instant'}));
+const name = CONFIG.name;
+$('hbd').textContent = "Happy " + CONFIG.age + "Birthday " + name;
+$('tagline').textContent = CONFIG.tagline;
+$('cakeText').textContent = CONFIG.cakeText;
+$('finalTitle').textContent = CONFIG.finalTitle;
+$('finalMsg').textContent = CONFIG.finalMsg;
+$('sig').textContent = "With Love, " + CONFIG.from;
+
+/* shows the next page and its link */
+function unlock(sec, link){ $(sec).classList.remove('gated'); $(link).hidden = false; }
+
+/* signal */
+$('light').addEventListener('click', () => {
+  $('hero').classList.add('lit');
+  burst(14);
+  setTimeout(() => $('hero').scrollIntoView({block:'start'}), 50);
+});
+
+/* locks */
+let opened = 0;
+const grid = $('fileGrid');
+CONFIG.files.forEach(f => {
+  const b = document.createElement('button');
+  b.className = 'file';
+  b.innerHTML = '<span class="tag"></span><span class="stamp">Tap to open the lock.</span><span class="secret"></span>';
+  b.querySelector('.tag').textContent = f.tag;
+  b.querySelector('.secret').textContent = f.secret;
+  b.addEventListener('click', () => {
+    if (b.classList.contains('open')) return;
+    b.classList.add('open'); opened++;
+    b.querySelector('.tag').textContent = f.tag.replace('🔒','🔓');
+    updateCounter();
+  });
+  grid.appendChild(b);
+});
+function updateCounter(){
+  const n = CONFIG.files.length;
+  $('counter').textContent = opened === 0 ? "" :
+    opened < n ? opened + " of " + n + " locks open." :
+    "All three locks are open. Now, make your wishes.";
+  if (opened === n) unlock('wish','go1');
+}
+
+/* quiz */
+let qi = 0, attempt = 1, picks = [];
+const qbox = $('quiz');
+function renderQ(){
+  const q = CONFIG.quiz[qi], len = CONFIG.quiz.length;
+  qbox.innerHTML = '';
+  const n = document.createElement('p'); n.className = 'qn';
+  n.textContent = 'Question ' + (qi+1) + ' of ' + len + (attempt === 2 ? ' · Second chance' : '');
+  const h = document.createElement('p'); h.className = 'qq'; h.textContent = q.q;
+  const g = document.createElement('div'); g.className = 'opts';
+  const nx = document.createElement('button'); nx.className = 'btn qnext'; nx.hidden = true;
+  nx.textContent = qi < len - 1 ? 'Next question' : 'See my result';
+  q.o.forEach((t,i) => {
+    const b = document.createElement('button'); b.className = 'opt'; b.textContent = t;
+    b.addEventListener('click', () => {
+      picks[qi] = i;
+      [...g.children].forEach(x => x.classList.remove('picked'));
+      b.classList.add('picked'); nx.hidden = false;
+    });
+    g.appendChild(b);
+  });
+  nx.addEventListener('click', () => { qi++; qi < len ? renderQ() : result(); });
+  qbox.append(n, h, g, nx);
+}
+function result(){
+  const ok = CONFIG.quiz.every((q,i) => picks[i] === q.a);
+  qbox.innerHTML = '';
+  const h = document.createElement('p'); h.className = 'qq'; 
+  if (ok){
+    h.textContent = attempt === 1 ? "Perfect in the first go! 😍 Your rewards are unlocked." : "Got it right this time! 😏🥳 Okay okay, your rewards are unlocked. Jollyyyyyyyyyyyy. 🥳";
+    qbox.append(h); unlock('rewards','go3'); burst(50);
+  } else if (attempt === 1){
+    h.textContent = "Hmm, something is not right 🤨 I won't tell you which one. Here is a second chance for all the questions.";
+    const r = document.createElement('button'); r.className = 'btn'; r.textContent = 'Take the second chance';
+    r.addEventListener('click', () => { attempt = 2; qi = 0; picks = []; renderQ(); });
+    qbox.append(h, r);
+  } else {
+    h.textContent = "Ena thimingalam Second Chance kuda miss panitiye. Rewards nijamave missed. 😝";
+    const love = document.createElement('p'); love.className = 'lovenote';
+    const sp = document.createElement('span'); sp.textContent = 'But I love you Thangam';
+    love.append(sp, ' ❤️😘');
+    const ans = document.createElement('div'); ans.className = 'answers';
+    const at = document.createElement('p'); at.className = 'qn'; at.textContent = 'Here are the correct answers 😌';
+    ans.append(at);
+    CONFIG.quiz.forEach((q,i) => {
+      const d = document.createElement('div'); d.className = 'ans';
+      const a = document.createElement('span'); a.className = 'aq'; a.textContent = (i+1) + '. ' + q.q;
+      const b = document.createElement('strong'); b.textContent = '✔ ' + q.o[q.a];
+      d.append(a, b); ans.append(d);
+    });
+    const tm = document.createElement('p'); tm.className = 'textme';
+    tm.textContent = "Text me once you’ve missed the rewards. I’ll see whether anything can be done or not 😏";
+    qbox.append(h, love, ans, tm); setTimeout(() => burst(25), 800);
+    // qbox.append(h, love); setTimeout(() => burst(25), 800);
+  }
+}
+renderQ();
+
+/* rewards */
+let redeemed = 0;
+CONFIG.coupons.forEach(f => {
+  const b = document.createElement('button'); b.className = 'file';
+  b.innerHTML = '<span class="tag"></span><span class="stamp">Tap to redeem.</span><span class="secret"></span>';
+  b.querySelector('.tag').textContent = f.tag; b.querySelector('.secret').textContent = f.secret;
+  b.addEventListener('click', () => {
+    if (b.classList.contains('open')) return;
+    b.classList.add('open'); burst(40); redeemed++;
+        if (redeemed === CONFIG.coupons.length){
+      burst(60);
+      unlock('theend','go4');
+      $('redeem').classList.add('show');
+    }
+  });
+  // b.addEventListener('click', () => {
+  //   if (b.classList.contains('open')) return;
+  //   b.classList.add('open'); burst(40);
+  //   $('redeem').classList.add('show');
+  // });
+  $('coupons').appendChild(b);
+});
+$('redeemClose').addEventListener('click', () => $('redeem').classList.remove('show'));
+
+/* birthday tune: built-in beeps, used only if there is no song file */
+let ac;
+function beep(){
+  try {
+    ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+    if (ac.state === 'suspended') ac.resume();
+    const N = [392,392,440,392,523,494,392,392,440,392,587,523,392,392,784,659,523,494,440,698,698,659,523,587,523];
+    const D = [.75,.25,1,1,1,2,.75,.25,1,1,1,2,.75,.25,1,1,1,1,2,.75,.25,1,1,1,2];
+    let t = ac.currentTime + .05;
+    N.forEach((f,i) => {
+      const o = ac.createOscillator(), g = ac.createGain(), d = D[i] * .42;
+      o.type = 'triangle'; o.frequency.value = f; o.connect(g); g.connect(ac.destination);
+      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.18, t + .03); g.gain.exponentialRampToValueAtTime(.001, t + d);
+      o.start(t); o.stop(t + d + .05); t += d;
+    });
+  } catch(e){}
+}
+/* your own song: plays song.mp3, button plays or stops it */
+let audio;
+function tune(){
+  if (CONFIG.song){
+    if (!audio){ audio = new Audio(CONFIG.song); }
+    if (!audio.paused){ audio.pause(); return; }
+    // if (!audio.paused){ audio.pause(); audio.currentTime = 0; return; }
+    audio.play().catch(() => { audio = null; beep(); });
+    return;
+  }
+  beep();
+}
+$('tune').addEventListener('click', tune);
+function typeMsg(){
+  const el = $('finalMsg'), s = CONFIG.finalMsg;
+  const done = () => { el.textContent = s; $('sig').hidden = false; $('proceed').hidden = false; };
+  if (matchMedia('(prefers-reduced-motion:reduce)').matches) return done();
+  let i = 0; el.textContent = '';
+  const id = setInterval(() => { el.textContent = s.slice(0, ++i); if (i >= s.length){ clearInterval(id); done(); } }, 28);
+}
+
+/* candles and wishes */
+const count = CONFIG.candles;
+const wishes = new Array(count).fill('');
+const row = $('candles'), cs = [], modal = $('modal'), inp = $('wishIn');
+let cur = -1, finished = false;
+const made = () => wishes.filter(Boolean).length;
+function closeM(){ modal.classList.remove('show'); cur = -1; }
+for (let i = 0; i < count; i++){
+  const c = document.createElement('button');
+  c.className = 'candle' + (wishes[i] ? ' out' : '');
+  c.setAttribute('aria-label', 'Candle ' + (i+1) + ', tap to make a wish');
+  c.innerHTML = '<span class="flame"></span><span class="stick"></span>';
+  c.addEventListener('click', () => {
+    if (wishes[i]) return;
+    cur = i; $('wishNo').textContent = 'Wish ' + (i+1) + ' of ' + count;
+    inp.value = ''; modal.classList.add('show'); setTimeout(() => inp.focus(), 50);
+  });
+  row.appendChild(c); cs.push(c);
+}
+function save(){
+  // const t = inp.value.trim();
+  const t = inp.value.replace(/\s*\n\s*/g, ' ').trim();
+  if (!t || cur < 0) return;
+  wishes[cur] = t; cs[cur].classList.add('out');
+  closeM(); refresh(); if (made() === count) tune();
+}
+$('wishSave').addEventListener('click', save);
+$('wishCancel').addEventListener('click', closeM);
+// inp.addEventListener('keydown', e => { if (e.key === 'Enter') save(); if (e.key === 'Escape') closeM(); });
+function refresh(){
+  const d = made();
+  $('status').textContent = d === count ? "All " + count + " wishes made." : d + " of " + count + " wishes made. Tap a flame.";
+  if (d === count) finish();
+}
+function finish(){
+  const ol = $('wl'); ol.innerHTML = '';
+  wishes.forEach(w => { const li = document.createElement('li'); li.textContent = w; ol.appendChild(li); });
+  const text = name + "’s " + count + " birthday wishes 🦇\n\n" + wishes.map((w,i) => (i+1) + ". " + w).join("\n");
+  const num = (CONFIG.whatsapp || '').replace(/\D/g,'');
+  $('wa').href = 'https://wa.me/' + num + '?text=' + encodeURIComponent(text);
+  $('copy').onclick = () => {
+    $('copyMsg').style.color = 'var(--signal)';
+    $('copyMsg').textContent = "Only sending on WhatsApp access is allowed. Please choose the option on the left 😤👈";
+  };
+  $('tune').disabled = false;
+  $('final').classList.add('show');
+  if (!finished){ finished = true; burst(60); typeMsg(); setTimeout(() => $('final').scrollIntoView({behavior:'smooth', block:'start'}), 500); }
+}
+$('proceed').addEventListener('click', () => {
+  $('proceed').hidden = true;
+  $('wishPart').hidden = false;
+  $('wishPart').scrollIntoView({behavior:'smooth', block:'start'});
+});
+$('wa').addEventListener('click', () => unlock('quizsec','go2'));
+
+/* bat confetti */
+const cv = $('fx'), ctx = cv.getContext('2d');
+let parts = [], running = false;
+function size(){ cv.width = innerWidth * devicePixelRatio; cv.height = innerHeight * devicePixelRatio; }
+addEventListener('resize', size); size();
+const batPath = new Path2D("M50 10 L44 0 L42 10 C36 8 28 10 20 4 C22 14 14 24 0 26 C10 28 18 28 24 32 C28 30 34 30 38 34 C42 36 46 40 50 50 C54 40 58 36 62 34 C66 30 72 30 76 32 C82 28 90 28 100 26 C86 24 78 14 80 4 C72 10 64 8 58 10 L56 0 Z");
+function burst(n){
+  if (matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  const d = devicePixelRatio;
+  for (let i = 0; i < n; i++){
+    parts.push({x:Math.random()*cv.width, y:-30*d - Math.random()*cv.height*.4, s:(.25+Math.random()*.4)*d,
+      vy:(1.5+Math.random()*2.5)*d, vx:(Math.random()-.5)*2*d, r:Math.random()*6, vr:(Math.random()-.5)*.1,
+      c: Math.random()<.5 ? "#ffd23f" : "#8b94a7"});
+  }
+  if (!running){ running = true; requestAnimationFrame(tick); }
+}
+function tick(){
+  ctx.clearRect(0,0,cv.width,cv.height);
+  parts = parts.filter(p => p.y < cv.height + 60);
+  parts.forEach(p => {
+    p.x += p.vx; p.y += p.vy; p.r += p.vr;
+    ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r); ctx.scale(p.s,p.s);
+    ctx.fillStyle = p.c; ctx.fill(batPath); ctx.restore();
+  });
+  if (parts.length) requestAnimationFrame(tick); else running = false;
+}
+
+/* the end screen: the Bat-Signal shines again */
+$('endTitle').textContent = CONFIG.endTitle;
+$('endSub').textContent = CONFIG.endSub;
+$('hero').querySelectorAll('.fb, .skyline').forEach(n => $('theend').prepend(n.cloneNode(true)));
+new IntersectionObserver((en, ob) => {
+  if (en[0].isIntersecting){ $('theend').classList.add('lit'); burst(60); ob.disconnect(); }
+}, {threshold:.5}).observe($('theend'));
+$('again').addEventListener('click', () => location.reload());
+/* start: must stay at the very end */
+refresh();
+</script>
+</body>
+</html>
