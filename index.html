@@ -229,7 +229,6 @@ canvas#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-in
     <!-- <h1 class="end-h end-fade"><span class="y">Mission complete.</span><br><span id="endTitle"></span></h1> -->
      <h1 class="end-h end-fade" id="endTitle"></h1>
     <p class="end-sub end-fade" id="endSub"></p>
-    <button class="btn end-fade" id="again">Watch it again</button>
   </div>
 </section>
   <!-- <div class="files" id="coupons"></div>
@@ -541,7 +540,6 @@ $('hero').querySelectorAll('.fb, .skyline').forEach(n => $('theend').prepend(n.c
 new IntersectionObserver((en, ob) => {
   if (en[0].isIntersecting){ $('theend').classList.add('lit'); burst(60); ob.disconnect(); }
 }, {threshold:.5}).observe($('theend'));
-$('again').addEventListener('click', () => location.reload());
 /* start: must stay at the very end */
 refresh();
 </script>
